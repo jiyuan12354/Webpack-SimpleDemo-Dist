@@ -3,7 +3,7 @@
 ## 执行npm install安装node依赖
 
 ```
-  npm install
-  cd Webpack-SimpleDemo
+  cd Webpack-SimpleDemo //进入到当前目录
+  npm install
   npm run start
 ```
