@@ -1,10 +1,24 @@
 var gulp = require('gulp'),
   gutil = require('gulp-util'),
   spsave = require('gulp-spsave'),
-  webpack = require('webpack');
+  webpack = require('webpack'),
+  git = require('gulp-git');
 var creds = require("./settings.js");
 var src = process.cwd();
-var assets = process.cwd() + '/dist';
+var assets = process.cwd() + '/Webpack-SimpleDemo-Dist';
+
+var release = require('gulp-git-release');
+ 
+gulp.task('release',['pack'], function() {
+    return gulp.src('dist/**/*')
+        .pipe(release({
+            prefix: 'dist',
+            release: true,
+            debug: false,
+            repository: 'https://github.com/jiyuan12354/Webpack-SimpleDemo-Dist.git',
+            bumpVersion: false
+        }));
+});
 
 //run webpack pack
 gulp.task('pack', function (cb) {
@@ -17,8 +31,7 @@ gulp.task('pack', function (cb) {
 });
 
 //deploy assets to remote sharepoint site
-gulp.task('deploy', ['pack'],function () {
-    var spSave = require('gulp-spsave');
+gulp.task('deploy',['clone'], function () {
     return gulp.src(assets + '/**')
       .pipe(spsave({
         siteUrl: 'https://nokia.sharepoint.com/sites/O365KMPOC',
@@ -26,6 +39,15 @@ gulp.task('deploy', ['pack'],function () {
       }, creds));
 })
 
+// Clone a remote repo 
+gulp.task('clone', function(cb){
+  git.clone('https://github.com/jiyuan12354/Webpack-SimpleDemo-Dist.git', function (err) {
+    if (err) throw err;
+    cb();
+  });
+});
+
 //default task
-gulp.task('default',['deploy'])
+gulp.task('default',['release'])
+// gulp.task('default',['deploy'])
 
