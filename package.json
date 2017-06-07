@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "webpack-dev-server --inline --hot",
         "deploy": "rd/s/q dist && gulp",
-        "empty": "rd/s/q dist && mkdir dist && git init && git add . && git commit -m 'empty' && git pull https://github.com/jiyuan12354/Webpack-SimpleDemo-Dist.git master --allow-unrelated-histories && git rm -rf . && git commit -m 'delete all files' && git push https://github.com/jiyuan12354/Webpack-SimpleDemo-Dist.git master"
+        "empty": "rd/s/q dist && mkdir dist && cd dist && git init && git add . && git commit -m 'empty' && git pull https://github.com/jiyuan12354/Webpack-SimpleDemo-Dist.git master --allow-unrelated-histories && git rm -rf . && git commit -m 'delete all files' && git push https://github.com/jiyuan12354/Webpack-SimpleDemo-Dist.git master"
     },
     "keywords": [],
     "author": "",
